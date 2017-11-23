@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wordcloud</title>
+    <script src="./echarts.min.js"></script>
+    <script src="./echarts-wordcloud.min.js"></script>
+    <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        .wrapper{
+            display:flex;
+            justify-content: space-around;
+            align-items:center;
+            flex-direction: column;
+            width:1800px;
+            height:800px;
+            margin:50px auto 0;
+        }
+        .wrapper ul {
+            display:flex;
+            margin:10px;
+        }
+        .wrapper li{
+            width:360px;
+            height:360px;
+            border:1px solid #eee;
+            margin:2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="row-first">
+            <li id="first-first"></li>
+            <li id="first-second"></li>
+            <li id="first-third"></li>
+            <li id="first-fourth"></li>
+            <li id="first-fifth"></li>
+        </ul>
+        <ul class="row-second">
+            <li id="second-first"></li>
+            <li id="second-second"></li>
+            <li id="second-third"></li>
+            <li id="second-fourth"></li>
+            <li id="second-fifth"></li>
+        </ul>
+    </div>
+
+
+    <script>
+        var dataArray = [
+            [{ "name": "渣", "symbolSize": 417, "up": 0 }, { "name": "回复", "symbolSize": 16, "up": 0 }, { "name": "婊", "symbolSize": 15, "up": 0 }, { "name": "恶心", "symbolSize": 14, "up": 0 }, { "name": "婊子", "symbolSize": 13, "up": 0 }, { "name": "贱", "symbolSize": 13, "up": 0 }, { "name": "贱人", "symbolSize": 12, "up": 0 }, { "name": "娜", "symbolSize": 10, "up": 0 }, { "name": "滚", "symbolSize": 9, "up": 0 }, { "name": "娱乐圈", "symbolSize": 8, "up": 0 }, { "name": "骂", "symbolSize": 7, "up": 0 }, { "name": "说", "symbolSize": 6, "up": 0 }, { "name": "心机", "symbolSize": 6, "up": 0 }, { "name": "不要脸", "symbolSize": 6, "up": 0 }, { "name": "讨厌", "symbolSize": 5, "up": 0 }, { "name": "死", "symbolSize": 5, "up": 0 }, { "name": "古力娜扎", "symbolSize": 5, "up": 0 }, { "name": "哭", "symbolSize": 5, "up": 0 }, { "name": "狐狸精", "symbolSize": 4, "up": 0 }, { "name": "👎", "symbolSize": 4, "up": 0 }, { "name": "古力", "symbolSize": 4, "up": 0 }, { "name": "鸡", "symbolSize": 3, "up": 0 }, { "name": "砸", "symbolSize": 3, "up": 0 }, { "name": "女", "symbolSize": 3, "up": 0 }, { "name": "人渣", "symbolSize": 3, "up": 0 }, { "name": "郑爽", "symbolSize": 3, "up": 0 }, { "name": "张翰", "symbolSize": 3, "up": 0 }, { "name": "逼", "symbolSize": 3, "up": 0 }, { "name": "评论", "symbolSize": 3, "up": 0 }, { "name": "演技", "symbolSize": 2, "up": 0 }],
+            [{ "name": "回复", "symbolSize": 53, "up": 0 }, { "name": "美", "symbolSize": 21, "up": 0 }, { "name": "好看", "symbolSize": 19, "up": 0 }, { "name": "漂亮", "symbolSize": 16, "up": 0 }, { "name": "🍃", "symbolSize": 12, "up": 0 }, { "name": "吃", "symbolSize": 10, "up": 0 }, { "name": "说", "symbolSize": 8, "up": 0 }, { "name": "😂", "symbolSize": 8, "up": 0 }, { "name": "真", "symbolSize": 8, "up": 0 }, { "name": "喜欢", "symbolSize": 8, "up": 0 }, { "name": "想", "symbolSize": 7, "up": 0 }, { "name": "真的", "symbolSize": 7, "up": 0 }, { "name": "可爱", "symbolSize": 7, "up": 0 }, { "name": "好美", "symbolSize": 7, "up": 0 }, { "name": "好像", "symbolSize": 6, "up": 0 }, { "name": "女神", "symbolSize": 6, "up": 0 }, { "name": "杨幂", "symbolSize": 6, "up": 0 }, { "name": "🐔", "symbolSize": 6, "up": 0 }, { "name": "花心", "symbolSize": 6, "up": 0 }, { "name": "感觉", "symbolSize": 6, "up": 0 }, { "name": "哈哈哈", "symbolSize": 6, "up": 0 }, { "name": "新疆", "symbolSize": 5, "up": 0 }, { "name": "衣服", "symbolSize": 5, "up": 0 }, { "name": "美女", "symbolSize": 4, "up": 0 }, { "name": "👈", "symbolSize": 4, "up": 0 }, { "name": "穿", "symbolSize": 4, "up": 0 }, { "name": "太", "symbolSize": 4, "up": 0 }, { "name": "短发", "symbolSize": 3, "up": 0 }, { "name": "恶心", "symbolSize": 3, "up": 0 }, { "name": "照片", "symbolSize": 3, "up": 0 }],
+            [{ "name": "娜", "symbolSize": 45, "up": 0 }, { "name": "扎", "symbolSize": 39, "up": 0 }, { "name": "回复", "symbolSize": 26, "up": 0 }, { "name": "小雪", "symbolSize": 12, "up": 0 }, { "name": "爱", "symbolSize": 12, "up": 0 }, { "name": "支持", "symbolSize": 11, "up": 0 }, { "name": "加油", "symbolSize": 10, "up": 0 }, { "name": "期待", "symbolSize": 7, "up": 0 }, { "name": "电影", "symbolSize": 7, "up": 0 }, { "name": "🙏", "symbolSize": 5, "up": 0 }, { "name": "说", "symbolSize": 5, "up": 0 }, { "name": "希望", "symbolSize": 5, "up": 0 }, { "name": "轩辕剑", "symbolSize": 5, "up": 0 }, { "name": "永远", "symbolSize": 4, "up": 0 }, { "name": "谢谢", "symbolSize": 4, "up": 0 }, { "name": "唐人", "symbolSize": 4, "up": 0 }, { "name": "胡歌", "symbolSize": 4, "up": 0 }, { "name": "关注", "symbolSize": 4, "up": 0 }, { "name": "剑", "symbolSize": 4, "up": 0 }, { "name": "爱心", "symbolSize": 4, "up": 0 }, { "name": "痴", "symbolSize": 3, "up": 0 }, { "name": "美娜", "symbolSize": 3, "up": 0 }, { "name": "😭", "symbolSize": 3, "up": 0 }, { "name": "感觉", "symbolSize": 3, "up": 0 }, { "name": "心底", "symbolSize": 3, "up": 0 }, { "name": "扎根", "symbolSize": 3, "up": 0 }, { "name": "愿", "symbolSize": 3, "up": 0 }, { "name": "♡", "symbolSize": 3, "up": 0 }, { "name": "喜欢", "symbolSize": 3, "up": 0 }, { "name": "粉丝", "symbolSize": 3, "up": 0 }],
+            [{ "name": "演技", "symbolSize": 22, "up": 0 }, { "name": "回复", "symbolSize": 18, "up": 0 }, { "name": "演", "symbolSize": 17, "up": 0 }, { "name": "仙剑", "symbolSize": 11, "up": 0 }, { "name": "真的", "symbolSize": 10, "up": 0 }, { "name": "说", "symbolSize": 9, "up": 0 }, { "name": "毁", "symbolSize": 9, "up": 0 }, { "name": "剧", "symbolSize": 9, "up": 0 }, { "name": "电视剧", "symbolSize": 8, "up": 0 }, { "name": "渣", "symbolSize": 8, "up": 0 }, { "name": "喜欢", "symbolSize": 8, "up": 0 }, { "name": "这部", "symbolSize": 7, "up": 0 }, { "name": "恶心", "symbolSize": 7, "up": 0 }, { "name": "感觉", "symbolSize": 6, "up": 0 }, { "name": "戏", "symbolSize": 6, "up": 0 }, { "name": "好看", "symbolSize": 6, "up": 0 }, { "name": "表情", "symbolSize": 6, "up": 0 }, { "name": "拍", "symbolSize": 5, "up": 0 }, { "name": "胡歌", "symbolSize": 5, "up": 0 }, { "name": "一部", "symbolSize": 5, "up": 0 }, { "name": "想", "symbolSize": 5, "up": 0 }, { "name": "嗨", "symbolSize": 4, "up": 0 }, { "name": "太", "symbolSize": 4, "up": 0 }, { "name": "扎", "symbolSize": 4, "up": 0 }, { "name": "讨厌", "symbolSize": 4, "up": 0 }, { "name": "娜", "symbolSize": 4, "up": 0 }, { "name": "不看", "symbolSize": 4, "up": 0 }, { "name": "不错", "symbolSize": 4, "up": 0 }, { "name": "期待", "symbolSize": 3, "up": 0 }, { "name": "挺", "symbolSize": 3, "up": 0 }],
+            [{ "name": "━", "symbolSize": 66, "up": 0 }, { "name": "┃", "symbolSize": 34, "up": 0 }, { "name": "┗", "symbolSize": 24, "up": 0 }, { "name": "┓", "symbolSize": 24, "up": 0 }, { "name": "┏", "symbolSize": 24, "up": 0 }, { "name": "┛", "symbolSize": 24, "up": 0 }, { "name": "鼻屎", "symbolSize": 19, "up": 0 }, { "name": "挖", "symbolSize": 17, "up": 0 }, { "name": "请", "symbolSize": 14, "up": 0 }, { "name": "扎", "symbolSize": 13, "up": 0 }, { "name": "渣", "symbolSize": 11, "up": 0 }, { "name": "点赞", "symbolSize": 10, "up": 0 }, { "name": "岁", "symbolSize": 10, "up": 0 }, { "name": "干爹", "symbolSize": 9, "up": 0 }, { "name": "美空", "symbolSize": 8, "up": 0 }, { "name": "拍", "symbolSize": 8, "up": 0 }, { "name": "男人", "symbolSize": 8, "up": 0 }, { "name": "裸照", "symbolSize": 8, "up": 0 }, { "name": "骂", "symbolSize": 7, "up": 0 }, { "name": "花钱", "symbolSize": 7, "up": 0 }, { "name": "张翰", "symbolSize": 7, "up": 0 }, { "name": "娜", "symbolSize": 7, "up": 0 }, { "name": "炒作", "symbolSize": 6, "up": 0 }, { "name": "演员", "symbolSize": 6, "up": 0 }, { "name": "那渣", "symbolSize": 6, "up": 0 }, { "name": "开", "symbolSize": 6, "up": 0 }, { "name": "小号", "symbolSize": 6, "up": 0 }, { "name": "一夜", "symbolSize": 6, "up": 0 }, { "name": "卖肉", "symbolSize": 6, "up": 0 }, { "name": "小小年纪", "symbolSize": 6, "up": 0 }],
+            [{ "name": "回复", "symbolSize": 131, "up": 0 }, { "name": "说", "symbolSize": 24, "up": 0 }, { "name": "骂", "symbolSize": 12, "up": 0 }, { "name": "逼", "symbolSize": 10, "up": 0 }, { "name": "妈", "symbolSize": 9, "up": 0 }, { "name": "恶心", "symbolSize": 7, "up": 0 }, { "name": "渣", "symbolSize": 7, "up": 0 }, { "name": "用户", "symbolSize": 6, "up": 0 }, { "name": "狗", "symbolSize": 5, "up": 0 }, { "name": "死", "symbolSize": 5, "up": 0 }, { "name": "滚", "symbolSize": 4, "up": 0 }, { "name": "素质", "symbolSize": 4, "up": 0 }, { "name": "贱", "symbolSize": 4, "up": 0 }, { "name": "傻", "symbolSize": 4, "up": 0 }, { "name": "真", "symbolSize": 4, "up": 0 }, { "name": "玫瑰", "symbolSize": 3, "up": 0 }, { "name": "郑爽", "symbolSize": 3, "up": 0 }, { "name": "喜欢", "symbolSize": 3, "up": 0 }, { "name": "说话", "symbolSize": 3, "up": 0 }, { "name": "评论", "symbolSize": 3, "up": 0 }, { "name": "贱人", "symbolSize": 3, "up": 0 }, { "name": "丑", "symbolSize": 3, "up": 0 }, { "name": "事", "symbolSize": 3, "up": 0 }, { "name": "想", "symbolSize": 3, "up": 0 }, { "name": "吃", "symbolSize": 3, "up": 0 }, { "name": "骂人", "symbolSize": 2, "up": 0 }, { "name": "关", "symbolSize": 2, "up": 0 }, { "name": "婊子", "symbolSize": 2, "up": 0 }, { "name": "不要脸", "symbolSize": 2, "up": 0 }, { "name": "讨厌", "symbolSize": 2, "up": 0 }],
+            [{ "name": "娜", "symbolSize": 145, "up": 0 }, { "name": "扎", "symbolSize": 142, "up": 0 }, { "name": "加油", "symbolSize": 60, "up": 0 }, { "name": "喜欢", "symbolSize": 26, "up": 0 }, { "name": "爱", "symbolSize": 22, "up": 0 }, { "name": "支持", "symbolSize": 19, "up": 0 }, { "name": "生日快乐", "symbolSize": 18, "up": 0 }, { "name": "美", "symbolSize": 11, "up": 0 }, { "name": "女神", "symbolSize": 10, "up": 0 }, { "name": "姐姐", "symbolSize": 9, "up": 0 }, { "name": "永远", "symbolSize": 8, "up": 0 }, { "name": "哒", "symbolSize": 7, "up": 0 }, { "name": "美美", "symbolSize": 6, "up": 0 }, { "name": "期待", "symbolSize": 6, "up": 0 }, { "name": "宝贝", "symbolSize": 6, "up": 0 }, { "name": "漂亮", "symbolSize": 6, "up": 0 }, { "name": "晚安", "symbolSize": 6, "up": 0 }, { "name": "快乐", "symbolSize": 6, "up": 0 }, { "name": "说", "symbolSize": 5, "up": 0 }, { "name": "美娜", "symbolSize": 5, "up": 0 }, { "name": "可爱", "symbolSize": 4, "up": 0 }, { "name": "扎姐", "symbolSize": 4, "up": 0 }, { "name": "真的", "symbolSize": 4, "up": 0 }, { "name": "我爱你", "symbolSize": 4, "up": 0 }, { "name": "希望", "symbolSize": 4, "up": 0 }, { "name": "好美", "symbolSize": 3, "up": 0 }, { "name": "❤", "symbolSize": 3, "up": 0 }, { "name": "拍", "symbolSize": 3, "up": 0 }, { "name": "谢谢", "symbolSize": 3, "up": 0 }, { "name": "开心", "symbolSize": 3, "up": 0 }],
+            [{ "name": "回复", "symbolSize": 44, "up": 0 }, { "name": "说", "symbolSize": 31, "up": 0 }, { "name": "喜欢", "symbolSize": 22, "up": 0 }, { "name": "骂", "symbolSize": 17, "up": 0 }, { "name": "扎", "symbolSize": 13, "up": 0 }, { "name": "娜", "symbolSize": 11, "up": 0 }, { "name": "黑", "symbolSize": 10, "up": 0 }, { "name": "做", "symbolSize": 9, "up": 0 }, { "name": "加油", "symbolSize": 9, "up": 0 }, { "name": "真的", "symbolSize": 8, "up": 0 }, { "name": "评论", "symbolSize": 8, "up": 0 }, { "name": "讨厌", "symbolSize": 7, "up": 0 }, { "name": "想", "symbolSize": 6, "up": 0 }, { "name": "明星", "symbolSize": 6, "up": 0 }, { "name": "粉丝", "symbolSize": 5, "up": 0 }, { "name": "郑爽", "symbolSize": 5, "up": 0 }, { "name": "事", "symbolSize": 4, "up": 0 }, { "name": "嫉妒", "symbolSize": 4, "up": 0 }, { "name": "挺", "symbolSize": 4, "up": 0 }, { "name": "关注", "symbolSize": 4, "up": 0 }, { "name": "素质", "symbolSize": 4, "up": 0 }, { "name": "不好", "symbolSize": 4, "up": 0 }, { "name": "太", "symbolSize": 4, "up": 0 }, { "name": "努力", "symbolSize": 3, "up": 0 }, { "name": "漂亮", "symbolSize": 3, "up": 0 }, { "name": "骂人", "symbolSize": 3, "up": 0 }, { "name": "希望", "symbolSize": 3, "up": 0 }, { "name": "偶像", "symbolSize": 3, "up": 0 }, { "name": "渣", "symbolSize": 3, "up": 0 }, { "name": "有人", "symbolSize": 3, "up": 0 }],
+            [{ "name": "❤", "symbolSize": 19, "up": 0 }, { "name": "花心", "symbolSize": 15, "up": 0 }, { "name": "🎀", "symbolSize": 13, "up": 0 }, { "name": "✨", "symbolSize": 11, "up": 0 }, { "name": "😘", "symbolSize": 10, "up": 0 }, { "name": "微信", "symbolSize": 9, "up": 0 }, { "name": "👗", "symbolSize": 8, "up": 0 }, { "name": "关注", "symbolSize": 7, "up": 0 }, { "name": "👏", "symbolSize": 6, "up": 0 }, { "name": "美衣", "symbolSize": 6, "up": 0 }, { "name": "😍", "symbolSize": 6, "up": 0 }, { "name": "️", "symbolSize": 6, "up": 0 }, { "name": "狗日", "symbolSize": 6, "up": 0 }, { "name": "代购", "symbolSize": 5, "up": 0 }, { "name": "😖", "symbolSize": 5, "up": 0 }, { "name": "💓", "symbolSize": 5, "up": 0 }, { "name": "韩国", "symbolSize": 5, "up": 0 }, { "name": "面膜", "symbolSize": 5, "up": 0 }, { "name": "正品", "symbolSize": 4, "up": 0 }, { "name": "打扰", "symbolSize": 4, "up": 0 }, { "name": "娜", "symbolSize": 4, "up": 0 }, { "name": "奢侈品", "symbolSize": 4, "up": 0 }, { "name": "专柜", "symbolSize": 4, "up": 0 }, { "name": "💓", "symbolSize": 4, "up": 0 }, { "name": "高端", "symbolSize": 4, "up": 0 }, { "name": "💛", "symbolSize": 4, "up": 0 }, { "name": "💎", "symbolSize": 3, "up": 0 }, { "name": "包包", "symbolSize": 3, "up": 0 }, { "name": "👛", "symbolSize": 3, "up": 0 }, { "name": "护肤品", "symbolSize": 3, "up": 0 }],
+            [{ "name": "郑爽", "symbolSize": 37, "up": 0 }, { "name": "张翰", "symbolSize": 35, "up": 0 }, { "name": "回复", "symbolSize": 31, "up": 0 }, { "name": "说", "symbolSize": 22, "up": 0 }, { "name": "渣", "symbolSize": 21, "up": 0 }, { "name": "空气", "symbolSize": 12, "up": 0 }, { "name": "喜欢", "symbolSize": 11, "up": 0 }, { "name": "骂", "symbolSize": 11, "up": 0 }, { "name": "分手", "symbolSize": 10, "up": 0 }, { "name": "扎", "symbolSize": 9, "up": 0 }, { "name": "讨厌", "symbolSize": 9, "up": 0 }, { "name": "娜", "symbolSize": 8, "up": 0 }, { "name": "恶心", "symbolSize": 7, "up": 0 }, { "name": "古力娜扎", "symbolSize": 7, "up": 0 }, { "name": "黑", "symbolSize": 6, "up": 0 }, { "name": "哭", "symbolSize": 6, "up": 0 }, { "name": "装", "symbolSize": 6, "up": 0 }, { "name": "粉丝", "symbolSize": 6, "up": 0 }, { "name": "真的", "symbolSize": 4, "up": 0 }, { "name": "拍", "symbolSize": 4, "up": 0 }, { "name": "婊", "symbolSize": 4, "up": 0 }, { "name": "小爽", "symbolSize": 4, "up": 0 }, { "name": "整容", "symbolSize": 4, "up": 0 }, { "name": "爽", "symbolSize": 4, "up": 0 }, { "name": "偶像", "symbolSize": 4, "up": 0 }, { "name": "男", "symbolSize": 4, "up": 0 }, { "name": "不要脸", "symbolSize": 3, "up": 0 }, { "name": "粉", "symbolSize": 3, "up": 0 }, { "name": "想", "symbolSize": 3, "up": 0 }, { "name": "心机", "symbolSize": 3, "up": 0 }]
+        ]
+        var elements = document.getElementsByTagName('li')
+        
+        function echartsCloud() {
+            for (let i=0; i<elements.length; i++) {
+                console.log(111)
+                var myChart = echarts.init(elements[i])
+                myChart.setOption({
+                    tooltip: {},
+                    series: [{
+                       type: 'wordCloud',
+                        gridSize: 35,
+                        center: ['20%', '50%'],
+                        rotationRange: [0, 20],
+                        sizeRange: [16, 30],
+                        shape: 'smooth',
+                        textStyle: {
+                            normal: {
+                                fontFamily: 'sans-serif',
+                                color: function () {
+                                    return 'rgb('
+                                        + [Math.round(Math.random() * 160),
+                                            Math.round(Math.random() * 160),
+                                            Math.round(Math.random() * 160)]
+                                            .join(',') + ')';
+                                }
+                            }
+                        },
+                        data: dataArray[i].map((data, index) => { var item = { name: data.name, value: data.symbolSize }; return item })
+                    }]
+                })
+            }
+        }
+        echartsCloud()
+    </script>
+
+</body>
+
+</html>
